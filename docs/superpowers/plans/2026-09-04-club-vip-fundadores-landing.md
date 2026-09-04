@@ -1258,15 +1258,16 @@ import userEvent from '@testing-library/user-event';
 import { StickyHeader } from './StickyHeader';
 
 describe('StickyHeader', () => {
-  it('hides the mobile menu by default', () => {
+  it('does not duplicate nav links before the mobile menu opens', () => {
     render(<StickyHeader />);
-    expect(screen.queryByRole('navigation', { hidden: true })).toBeTruthy();
+    expect(screen.getAllByText('Beneficios')).toHaveLength(1);
     expect(screen.getByLabelText('Abrir menú')).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('opens the mobile menu when the hamburger button is clicked', async () => {
     render(<StickyHeader />);
     await userEvent.click(screen.getByLabelText('Abrir menú'));
+    expect(screen.getAllByText('Beneficios')).toHaveLength(2);
     expect(screen.getByLabelText('Abrir menú')).toHaveAttribute('aria-expanded', 'true');
   });
 
@@ -1275,6 +1276,7 @@ describe('StickyHeader', () => {
     const button = screen.getByLabelText('Abrir menú');
     await userEvent.click(button);
     await userEvent.click(button);
+    expect(screen.getAllByText('Beneficios')).toHaveLength(1);
     expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 });
