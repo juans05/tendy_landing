@@ -37,7 +37,6 @@ export const content = {
     subtitulo:
       'Accede a precios especiales, promociones privadas, novedades antes que todos y beneficios creados para nuestros clientes.',
     precio: 'S/14.90 / mes',
-    sinPermanencia: 'Sin permanencia durante el piloto.',
     ctaPrincipal: 'QUIERO SER MIEMBRO',
     ctaSecundario: 'Ver beneficios',
     microcopy: 'Te atenderemos directamente por WhatsApp.',
@@ -98,7 +97,6 @@ export const content = {
     miembroVip: {
       titulo: 'MIEMBRO VIP',
       items: [
-        { texto: 'Compra normalmente', incluido: true },
         { texto: 'Precio Socio en productos seleccionados', incluido: true },
         { texto: 'Acceso anticipado', incluido: true },
         { texto: 'Promociones privadas', incluido: true },

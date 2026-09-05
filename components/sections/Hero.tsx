@@ -31,8 +31,7 @@ export function Hero() {
           </span>
           <h1 className="mb-4 text-3xl font-extrabold leading-tight sm:text-5xl">{content.hero.headline}</h1>
           <p className="mb-6 max-w-2xl text-base text-neutral-300 sm:text-lg">{content.hero.subtitulo}</p>
-          <p className="mb-1 text-2xl font-bold text-brand-orange">{content.hero.precio}</p>
-          <p className="mb-8 text-sm text-neutral-400">{content.hero.sinPermanencia}</p>
+          <p className="mb-8 text-2xl font-bold text-brand-orange">{content.hero.precio}</p>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <Button
               href={whatsappHref}

@@ -16,10 +16,9 @@ describe('Hero', () => {
     expect(trackEvent).toHaveBeenCalledWith('ViewContent', { seccion: 'hero' });
   });
 
-  it('shows the founder price and no-permanence copy', () => {
+  it('shows the founder price', () => {
     render(<Hero />);
     expect(screen.getByText('S/14.90 / mes')).toBeInTheDocument();
-    expect(screen.getByText('Sin permanencia durante el piloto.')).toBeInTheDocument();
   });
 
   it('fires MembershipInterest and links to WhatsApp when the main CTA is clicked', async () => {
