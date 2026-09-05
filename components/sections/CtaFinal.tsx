@@ -10,13 +10,13 @@ export function CtaFinal() {
   const href = buildWhatsAppLink(content.whatsappCta.mensajePrellenado);
 
   return (
-    <section className="relative overflow-hidden bg-brand-blue px-4 py-16 text-center text-white">
+    <section className="relative overflow-hidden bg-brand-black px-4 py-16 text-center text-white">
       <GradientGlow />
       <FloatingDecor />
       <div className="relative mx-auto max-w-2xl">
         <h2 className="mb-4 text-2xl font-bold sm:text-3xl">{content.ctaFinal.titulo}</h2>
-        <p className="mb-4 text-blue-100">{content.ctaFinal.texto}</p>
-        <p className="mb-6 text-2xl font-bold text-brand-yellow">{content.ctaFinal.precio}</p>
+        <p className="mb-4 text-neutral-300">{content.ctaFinal.texto}</p>
+        <p className="mb-6 text-2xl font-bold text-brand-orange">{content.ctaFinal.precio}</p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Button
             href={href}

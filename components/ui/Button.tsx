@@ -14,10 +14,10 @@ export interface ButtonProps {
 }
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: 'bg-brand-yellow text-brand-blue hover:bg-yellow-400',
-  secondary: 'bg-brand-blue text-white hover:bg-blue-900',
-  outline: 'border-2 border-brand-blue text-brand-blue bg-transparent hover:bg-brand-blue hover:text-white',
-  outlineLight: 'border-2 border-white text-white bg-transparent hover:bg-white hover:text-brand-blue',
+  primary: 'bg-brand-orange text-brand-black hover:bg-orange-400',
+  secondary: 'bg-brand-black text-white hover:bg-neutral-900',
+  outline: 'border-2 border-brand-black text-brand-black bg-transparent hover:bg-brand-black hover:text-white',
+  outlineLight: 'border-2 border-white text-white bg-transparent hover:bg-white hover:text-brand-black',
 };
 
 export function Button({

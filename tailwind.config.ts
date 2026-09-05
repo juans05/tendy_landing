@@ -6,8 +6,8 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          blue: '#14235E',
-          yellow: '#FFC94A',
+          black: '#181818',
+          orange: '#FE6900',
         },
         accent: {
           sky: '#4FC3E8',

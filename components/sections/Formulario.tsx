@@ -58,7 +58,7 @@ export function Formulario() {
   return (
     <section id="formulario" className="bg-gray-50 px-4 py-16">
       <form onSubmit={handleSubmit} className="mx-auto max-w-lg space-y-4 rounded-2xl bg-white p-6 shadow-md">
-        <h2 className="text-2xl font-bold text-brand-blue">{content.formulario.titulo}</h2>
+        <h2 className="text-2xl font-bold text-brand-black">{content.formulario.titulo}</h2>
         <div>
           <label className="mb-1 block text-sm font-medium text-gray-700" htmlFor="nombre">
             {content.formulario.campos.nombre}
@@ -123,7 +123,7 @@ export function Formulario() {
           />
           {content.formulario.autorizacion}
         </label>
-        <a href="/privacidad" className="block text-sm text-brand-blue underline">
+        <a href="/privacidad" className="block text-sm text-brand-black underline">
           {content.formulario.linkPrivacidad}
         </a>
         <Button type="submit">{content.formulario.boton}</Button>

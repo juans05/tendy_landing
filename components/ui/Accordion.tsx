@@ -23,7 +23,7 @@ export function Accordion({ items }: { items: AccordionItem[] }) {
               type="button"
               onClick={() => toggle(index)}
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between py-4 text-left font-semibold text-brand-blue"
+              className="flex w-full items-center justify-between py-4 text-left font-semibold text-brand-black"
             >
               <span>{item.question}</span>
               <span aria-hidden>{isOpen ? '−' : '+'}</span>

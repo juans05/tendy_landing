@@ -9,7 +9,7 @@ export function WhatsappCta() {
 
   return (
     <section id="whatsapp" className="px-4 py-16 text-center">
-      <h2 className="mb-2 text-2xl font-bold text-brand-blue">{content.whatsappCta.titulo}</h2>
+      <h2 className="mb-2 text-2xl font-bold text-brand-black">{content.whatsappCta.titulo}</h2>
       <p className="mb-6 text-gray-600">{content.whatsappCta.texto}</p>
       <Button
         href={href}

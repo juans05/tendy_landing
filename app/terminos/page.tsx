@@ -5,8 +5,8 @@ export const metadata = { title: `Términos del Club | ${content.marca.nombre}` 
 export default function TerminosPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-16 text-gray-700">
-      <h1 className="mb-6 text-3xl font-bold text-brand-blue">Términos del Club VIP Fundadores</h1>
-      <a href="/" className="mb-6 inline-block text-sm text-brand-blue underline">
+      <h1 className="mb-6 text-3xl font-bold text-brand-black">Términos del Club VIP Fundadores</h1>
+      <a href="/" className="mb-6 inline-block text-sm text-brand-black underline">
         ← Volver al inicio
       </a>
 
@@ -15,13 +15,13 @@ export default function TerminosPage() {
         etapa piloto y pueden actualizarse conforme el programa evoluciona.
       </p>
 
-      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-blue">Membresía</h2>
+      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Membresía</h2>
       <p className="mb-4">
         La membresía tiene un costo de S/ 14.90 al mes durante la etapa piloto. Sin permanencia durante el piloto:
         puedes solicitar la cancelación de tu membresía cuando quieras, escribiéndonos por WhatsApp.
       </p>
 
-      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-blue">Beneficios</h2>
+      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Beneficios</h2>
       <p className="mb-4">
         Los beneficios del Club (Precio Socio, puntos dobles, acceso anticipado, promociones privadas, beneficios
         de delivery y sorteos) están sujetos a disponibilidad, producto, campaña y condiciones comerciales
@@ -29,7 +29,7 @@ export default function TerminosPage() {
         ilimitado.
       </p>
 
-      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-blue">Etapa piloto</h2>
+      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Etapa piloto</h2>
       <p className="mb-4">
         Durante esta etapa mediremos qué beneficios son más valorados por nuestros miembros fundadores.
         {' '}
@@ -37,7 +37,7 @@ export default function TerminosPage() {
         los miembros activos por WhatsApp.
       </p>
 
-      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-blue">Cancelación</h2>
+      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Cancelación</h2>
       <p className="mb-4">
         Puedes cancelar tu membresía en cualquier momento solicitándolo por WhatsApp, sin penalidad.
       </p>

@@ -9,9 +9,9 @@ export function Fundadores() {
   const href = buildWhatsAppLink(content.whatsappCta.mensajePrellenado);
 
   return (
-    <section className="bg-brand-blue px-4 py-16 text-white">
+    <section className="bg-brand-black px-4 py-16 text-white">
       <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
-        <div className="overflow-hidden rounded-3xl border-4 border-brand-yellow/40 shadow-2xl lg:order-2">
+        <div className="overflow-hidden rounded-3xl border-4 border-brand-orange/40 shadow-2xl lg:order-2">
           <Image
             src="/images/fundadores-girl.png"
             alt="Niña sonriendo mientras juega con bloques de construcción"
@@ -22,8 +22,8 @@ export function Fundadores() {
         </div>
         <div className="text-center lg:order-1 lg:text-left">
           <h2 className="mb-4 text-2xl font-bold sm:text-3xl">{content.fundadores.titulo}</h2>
-          <p className="mb-2 text-blue-100">{content.fundadores.texto1}</p>
-          <p className="mb-6 text-blue-100">{content.fundadores.texto2}</p>
+          <p className="mb-2 text-neutral-300">{content.fundadores.texto1}</p>
+          <p className="mb-6 text-neutral-300">{content.fundadores.texto2}</p>
           <Button
             href={href}
             variant="primary"

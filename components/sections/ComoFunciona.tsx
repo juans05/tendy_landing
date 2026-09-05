@@ -12,7 +12,7 @@ export function ComoFunciona() {
   return (
     <section id="como-funciona" className="bg-gray-50 px-4 py-16">
       <div className="mx-auto max-w-5xl">
-        <h2 className="mb-10 text-center text-2xl font-bold text-brand-blue sm:text-3xl">{content.comoFunciona.titulo}</h2>
+        <h2 className="mb-10 text-center text-2xl font-bold text-brand-black sm:text-3xl">{content.comoFunciona.titulo}</h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {content.comoFunciona.pasos.map((paso) => (
             <div key={paso.numero} className="flex flex-col items-center text-center">
@@ -28,7 +28,7 @@ export function ComoFunciona() {
               <span className="mb-2 inline-block rounded-full bg-accent-coral px-3 py-1 text-xs font-bold text-white">
                 PASO {paso.numero}
               </span>
-              <h3 className="mb-1 font-bold text-brand-blue">{paso.titulo}</h3>
+              <h3 className="mb-1 font-bold text-brand-black">{paso.titulo}</h3>
               <p className="text-sm text-gray-600">{paso.descripcion}</p>
             </div>
           ))}

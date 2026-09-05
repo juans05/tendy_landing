@@ -17,13 +17,13 @@ export function StickyHeader() {
       className={`fixed top-0 z-40 w-full transition-shadow duration-200 ${scrolled ? 'bg-white shadow-md' : 'bg-white/90'}`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <a href="#top" className="flex items-center gap-2 text-lg font-extrabold text-brand-blue">
+        <a href="#top" className="flex items-center gap-2 text-lg font-extrabold text-brand-black">
           <Image src="/images/mascot.png" alt="" width={36} height={36} className="h-9 w-9" aria-hidden />
           {content.marca.nombre}
         </a>
         <nav className="hidden items-center gap-6 sm:flex">
           {content.header.links.map((link) => (
-            <a key={link.label} href={link.href} className="text-sm font-medium text-gray-700 hover:text-brand-blue">
+            <a key={link.label} href={link.href} className="text-sm font-medium text-gray-700 hover:text-brand-black">
               {link.label}
             </a>
           ))}
@@ -44,7 +44,7 @@ export function StickyHeader() {
           aria-label="Abrir menú"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((prev) => !prev)}
-          className="text-2xl text-brand-blue sm:hidden"
+          className="text-2xl text-brand-black sm:hidden"
         >
           {menuOpen ? '✕' : '☰'}
         </button>

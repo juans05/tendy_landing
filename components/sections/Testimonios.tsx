@@ -26,7 +26,7 @@ export function Testimonios({
         {items.map((t) => (
           <Card key={t.nombre}>
             <p className="mb-2 text-gray-700">&ldquo;{t.texto}&rdquo;</p>
-            <p className="text-sm font-semibold text-brand-blue">{t.nombre}</p>
+            <p className="text-sm font-semibold text-brand-black">{t.nombre}</p>
           </Card>
         ))}
       </div>
