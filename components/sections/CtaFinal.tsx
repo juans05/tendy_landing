@@ -2,6 +2,7 @@
 import { content } from '@/lib/content';
 import { Button } from '@/components/ui/Button';
 import { FloatingDecor } from '@/components/ui/FloatingDecor';
+import { GradientGlow } from '@/components/ui/GradientGlow';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
 import { trackEvent } from '@/lib/analytics';
 
@@ -10,6 +11,7 @@ export function CtaFinal() {
 
   return (
     <section className="relative overflow-hidden bg-brand-blue px-4 py-16 text-center text-white">
+      <GradientGlow />
       <FloatingDecor />
       <div className="relative mx-auto max-w-2xl">
         <h2 className="mb-4 text-2xl font-bold sm:text-3xl">{content.ctaFinal.titulo}</h2>

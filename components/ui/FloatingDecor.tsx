@@ -1,12 +1,25 @@
+import Image from 'next/image';
+
+const TOYS = [
+  { src: '/images/toy-plane.png', className: 'left-[4%] top-[13%] hidden h-16 w-16 animate-float-slow sm:block sm:h-20 sm:w-20 lg:h-24 lg:w-24' },
+  { src: '/images/toy-ball.png', className: 'right-[7%] top-[8%] h-14 w-14 animate-float sm:h-16 sm:w-16 lg:h-20 lg:w-20' },
+  { src: '/images/toy-pinwheel.png', className: 'left-[8%] bottom-[8%] h-14 w-14 animate-float-slow sm:h-16 sm:w-16 lg:h-20 lg:w-20' },
+  { src: '/images/toy-car.png', className: 'right-[5%] bottom-[14%] h-16 w-16 animate-float sm:h-20 sm:w-20 lg:h-24 lg:w-24' },
+];
+
 export function FloatingDecor({ className = '' }: { className?: string }) {
   return (
     <div aria-hidden className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
-      <span className="absolute left-[6%] top-[18%] text-3xl animate-float-slow">🎁</span>
-      <span className="absolute right-[10%] top-[12%] text-2xl animate-float">⭐</span>
-      <span className="absolute left-[12%] bottom-[12%] text-2xl animate-float-slow">🎉</span>
-      <span className="absolute right-[8%] bottom-[22%] text-3xl animate-float">🎈</span>
-      <span className="absolute left-[22%] top-[45%] hidden text-2xl animate-float sm:inline-block">🧸</span>
-      <span className="absolute right-[20%] bottom-[8%] hidden text-2xl animate-float-slow sm:inline-block">🚗</span>
+      {TOYS.map((toy) => (
+        <Image
+          key={toy.src}
+          src={toy.src}
+          alt=""
+          width={96}
+          height={96}
+          className={`absolute drop-shadow-lg ${toy.className}`}
+        />
+      ))}
     </div>
   );
 }

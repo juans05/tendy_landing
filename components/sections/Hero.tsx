@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { FloatingDecor } from '@/components/ui/FloatingDecor';
+import { GradientGlow } from '@/components/ui/GradientGlow';
 import { useParallax } from '@/components/ui/useParallax';
 import { content } from '@/lib/content';
 import { buildWhatsAppLink } from '@/lib/whatsapp';
@@ -21,8 +22,9 @@ export function Hero() {
       id="top"
       className="relative overflow-hidden bg-gradient-to-b from-brand-blue to-blue-900 px-4 pb-16 pt-28 text-white sm:pt-32"
     >
+      <GradientGlow />
       <FloatingDecor />
-      <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
         <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
           <span className="mb-4 inline-block rounded-full bg-brand-yellow px-4 py-1 text-sm font-bold text-brand-blue">
             {content.hero.badge}
