@@ -19,6 +19,20 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
       },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-14px)' },
+        },
+        floatSlow: {
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '50%': { transform: 'translateY(-10px) rotate(6deg)' },
+        },
+      },
+      animation: {
+        float: 'float 4s ease-in-out infinite',
+        'float-slow': 'floatSlow 6s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

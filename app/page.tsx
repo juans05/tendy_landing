@@ -1,4 +1,5 @@
 import { StickyHeader } from '@/components/ui/StickyHeader';
+import { Reveal } from '@/components/ui/Reveal';
 import { Hero } from '@/components/sections/Hero';
 import { QueEsElClub } from '@/components/sections/QueEsElClub';
 import { Beneficios } from '@/components/sections/Beneficios';
@@ -19,17 +20,39 @@ export default function HomePage() {
       <StickyHeader />
       <main>
         <Hero />
-        <QueEsElClub />
-        <Beneficios />
-        <Comparacion />
-        <Pricing />
-        <ComoFunciona />
-        <Fundadores />
-        <WhatsappCta />
-        <Formulario />
-        <Faq />
-        <Testimonios />
-        <CtaFinal />
+        <Reveal>
+          <QueEsElClub />
+        </Reveal>
+        <Reveal>
+          <Beneficios />
+        </Reveal>
+        <Reveal>
+          <Comparacion />
+        </Reveal>
+        <Reveal>
+          <Pricing />
+        </Reveal>
+        <Reveal>
+          <ComoFunciona />
+        </Reveal>
+        <Reveal>
+          <Fundadores />
+        </Reveal>
+        <Reveal>
+          <WhatsappCta />
+        </Reveal>
+        <Reveal>
+          <Formulario />
+        </Reveal>
+        <Reveal>
+          <Faq />
+        </Reveal>
+        <Reveal>
+          <Testimonios />
+        </Reveal>
+        <Reveal>
+          <CtaFinal />
+        </Reveal>
       </main>
       <Footer />
     </>
