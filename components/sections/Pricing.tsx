@@ -26,7 +26,13 @@ export function Pricing() {
             </li>
           ))}
         </ul>
-        <Button href={href} onClick={() => trackEvent('MembershipInterest', { origen: 'pricing_cta' })}>
+        <Button
+          href={href}
+          onClick={() => {
+            trackEvent('ClickWhatsApp', { ubicacion: 'pricing_cta' });
+            trackEvent('MembershipInterest', { origen: 'pricing_cta' });
+          }}
+        >
           {content.pricing.cta}
         </Button>
         <p className="mt-4 text-xs text-gray-500">{content.pricing.sinPermanencia}</p>

@@ -23,7 +23,14 @@ export function Hero() {
         <p className="mb-1 text-2xl font-bold text-brand-yellow">{content.hero.precio}</p>
         <p className="mb-8 text-sm text-blue-200">{content.hero.sinPermanencia}</p>
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <Button href={whatsappHref} variant="primary" onClick={() => trackEvent('MembershipInterest', { origen: 'hero_cta_principal' })}>
+          <Button
+            href={whatsappHref}
+            variant="primary"
+            onClick={() => {
+              trackEvent('ClickWhatsApp', { ubicacion: 'hero_cta_principal' });
+              trackEvent('MembershipInterest', { origen: 'hero_cta_principal' });
+            }}
+          >
             {content.hero.ctaPrincipal}
           </Button>
           <Button href="#beneficios" variant="outlineLight">

@@ -14,10 +14,21 @@ export function CtaFinal() {
         <p className="mb-4 text-blue-100">{content.ctaFinal.texto}</p>
         <p className="mb-6 text-2xl font-bold text-brand-yellow">{content.ctaFinal.precio}</p>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <Button href={href} variant="primary" onClick={() => trackEvent('MembershipInterest', { origen: 'cta_final' })}>
+          <Button
+            href={href}
+            variant="primary"
+            onClick={() => {
+              trackEvent('ClickWhatsApp', { ubicacion: 'cta_final_principal' });
+              trackEvent('MembershipInterest', { origen: 'cta_final' });
+            }}
+          >
             {content.ctaFinal.ctaPrincipal}
           </Button>
-          <Button href={href} variant="outlineLight">
+          <Button
+            href={href}
+            variant="outlineLight"
+            onClick={() => trackEvent('ClickWhatsApp', { ubicacion: 'cta_final_secundario' })}
+          >
             {content.ctaFinal.ctaSecundario}
           </Button>
         </div>

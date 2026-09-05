@@ -66,6 +66,7 @@ export function Formulario() {
           <input
             id="nombre"
             type="text"
+            required
             value={state.nombre}
             onChange={(e) => setState((prev) => ({ ...prev, nombre: e.target.value }))}
             className="w-full rounded-lg border border-gray-300 px-4 py-2"
@@ -78,6 +79,7 @@ export function Formulario() {
           <input
             id="whatsapp"
             type="tel"
+            required
             value={state.whatsapp}
             onChange={(e) => setState((prev) => ({ ...prev, whatsapp: e.target.value }))}
             className="w-full rounded-lg border border-gray-300 px-4 py-2"
@@ -85,7 +87,7 @@ export function Formulario() {
         </div>
         <div>
           <label className="mb-1 block text-sm font-medium text-gray-700" htmlFor="rangoEdad">
-            Rango de edad de interés
+            {content.formulario.rangoEdadLabel}
           </label>
           <select
             id="rangoEdad"
@@ -102,7 +104,7 @@ export function Formulario() {
           </select>
         </div>
         <fieldset>
-          <legend className="mb-2 text-sm font-medium text-gray-700">Preferencias</legend>
+          <legend className="mb-2 text-sm font-medium text-gray-700">{content.formulario.preferenciasLabel}</legend>
           <div className="grid grid-cols-2 gap-2">
             {content.formulario.preferencias.map((pref) => (
               <label key={pref} className="flex items-center gap-2 text-sm text-gray-600">
@@ -115,6 +117,7 @@ export function Formulario() {
         <label className="flex items-start gap-2 text-sm text-gray-600">
           <input
             type="checkbox"
+            required
             checked={state.autorizado}
             onChange={(e) => setState((prev) => ({ ...prev, autorizado: e.target.checked }))}
           />

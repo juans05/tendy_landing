@@ -29,7 +29,10 @@ export function StickyHeader() {
             href={href}
             variant="primary"
             fullWidthOnMobile={false}
-            onClick={() => trackEvent('MembershipInterest', { origen: 'header_cta' })}
+            onClick={() => {
+              trackEvent('ClickWhatsApp', { ubicacion: 'header_cta' });
+              trackEvent('MembershipInterest', { origen: 'header_cta' });
+            }}
           >
             {content.header.ctaLabel}
           </Button>
@@ -56,7 +59,15 @@ export function StickyHeader() {
               {link.label}
             </a>
           ))}
-          <Button href={href} variant="primary">
+          <Button
+            href={href}
+            variant="primary"
+            onClick={() => {
+              trackEvent('ClickWhatsApp', { ubicacion: 'header_cta' });
+              trackEvent('MembershipInterest', { origen: 'header_cta' });
+              setMenuOpen(false);
+            }}
+          >
             {content.header.ctaLabel}
           </Button>
         </nav>

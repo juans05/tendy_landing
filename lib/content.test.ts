@@ -3,7 +3,10 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { content } from './content';
 
-const SOURCE = readFileSync(join(__dirname, 'content.ts'), 'utf-8').toLowerCase();
+const CONTENT_SOURCE = readFileSync(join(__dirname, 'content.ts'), 'utf-8');
+const PRIVACY_SOURCE = readFileSync(join(__dirname, '..', 'app', 'privacidad', 'page.tsx'), 'utf-8');
+const TERMS_SOURCE = readFileSync(join(__dirname, '..', 'app', 'terminos', 'page.tsx'), 'utf-8');
+const SOURCE = (CONTENT_SOURCE + PRIVACY_SOURCE + TERMS_SOURCE).toLowerCase();
 
 const FORBIDDEN_PHRASES = [
   'descuento en todos los juguetes',

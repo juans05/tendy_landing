@@ -163,6 +163,8 @@ export const content = {
   formulario: {
     titulo: 'Quiero recibir información',
     campos: { nombre: 'Nombre', whatsapp: 'WhatsApp' },
+    rangoEdadLabel: 'Rango de edad de interés',
+    preferenciasLabel: 'Preferencias',
     rangoEdad: ['3 a 5 años', '6 a 8 años', '9 a 12 años', '13+ años', 'Prefiero no indicar'],
     preferencias: ['Juguetes educativos', 'Juguetes electrónicos', 'Juegos', 'Carritos', 'Muñecas', 'Creatividad', 'Otros'],
     autorizacion: 'Autorizo que me contacten por WhatsApp para brindarme información sobre el Club y promociones.',

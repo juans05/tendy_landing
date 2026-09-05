@@ -1,5 +1,9 @@
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '51999999999';
 
+if (WHATSAPP_NUMBER === '51999999999' && process.env.NODE_ENV === 'production') {
+  console.warn('[tendy] NEXT_PUBLIC_WHATSAPP_NUMBER no configurado — los CTAs apuntan al número placeholder.');
+}
+
 export function buildWhatsAppLink(message: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }

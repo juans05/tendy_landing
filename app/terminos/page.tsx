@@ -6,6 +6,9 @@ export default function TerminosPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-16 text-gray-700">
       <h1 className="mb-6 text-3xl font-bold text-brand-blue">Términos del Club VIP Fundadores</h1>
+      <a href="/" className="mb-6 inline-block text-sm text-brand-blue underline">
+        ← Volver al inicio
+      </a>
 
       <p className="mb-4">
         El Club VIP Fundadores es un programa piloto de {content.marca.nombre}. Estos términos aplican durante la

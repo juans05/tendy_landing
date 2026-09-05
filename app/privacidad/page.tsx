@@ -6,6 +6,9 @@ export default function PrivacidadPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 py-16 text-gray-700">
       <h1 className="mb-6 text-3xl font-bold text-brand-blue">Política de Privacidad</h1>
+      <a href="/" className="mb-6 inline-block text-sm text-brand-blue underline">
+        ← Volver al inicio
+      </a>
 
       <p className="mb-4">
         En {content.marca.nombre} nos tomamos en serio la protección de tus datos personales, conforme a la Ley
