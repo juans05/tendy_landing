@@ -1,10 +1,10 @@
 import { content } from '@/lib/content';
 
-export const metadata = { title: `Política de privacidad | ${content.marca.nombre}` };
+export const metadata = { alternates: { canonical: '/privacidad' }, title: `Política de privacidad | ${content.marca.nombre}` };
 
 export default function PrivacidadPage() {
   return (
-    <main className="mx-auto max-w-2xl px-4 py-16 text-gray-700">
+    <main id="contenido" className="mx-auto max-w-2xl px-4 py-16 text-gray-700">
       <h1 className="mb-6 text-3xl font-bold text-brand-black">Política de Privacidad</h1>
       <a href="/" className="mb-6 inline-block text-sm text-brand-black underline">
         ← Volver al inicio
@@ -25,11 +25,11 @@ export default function PrivacidadPage() {
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">¿Para qué usamos tus datos?</h2>
       <p className="mb-4">
-        Usamos tus datos exclusivamente para contactarte por WhatsApp y brindarte información sobre el Club VIP
-        Fundadores y sus promociones. No usamos tus datos con ningún otro fin.
+        Usamos los datos que nos envías para atender consultas por WhatsApp y brindarte información sobre juguetes y el Club VIP
+        Fundadores y sus promociones. Con tu permiso, también medimos el uso de la web para mejorarla.
       </p>
 
-      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Base legal</h2>
+      <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Analítica y cookies</h2><p className="mb-4">La analítica opcional solo se carga cuando la aceptas. Medimos visitas, categorías consultadas y clics hacia WhatsApp. Puedes activarla o desactivarla mediante el control de la parte inferior. La preferencia se guarda en tu navegador. Desactivarla detiene nuevas mediciones; puedes eliminar cookies anteriores desde los ajustes del navegador.</p><h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Base legal</h2>
       <p className="mb-4">
         Tratamos tus datos en base a la autorización expresa que otorgas al marcar la casilla correspondiente en
         nuestro formulario.
@@ -37,7 +37,7 @@ export default function PrivacidadPage() {
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">¿Compartimos tus datos?</h2>
       <p className="mb-4">
-        No compartimos, vendemos ni cedemos tus datos personales a terceros, salvo obligación legal.
+        Al contactarnos por WhatsApp, los datos que envías se procesan también en esa plataforma. Si aceptas analítica, Google y, cuando esté configurado, Meta reciben datos de navegación e interacciones. No enviamos tu nombre, teléfono ni el texto de tus mensajes como parámetros de eventos.
       </p>
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">¿Cuánto tiempo conservamos tus datos?</h2>

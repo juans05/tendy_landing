@@ -1,10 +1,10 @@
 import { content } from '@/lib/content';
 
-export const metadata = { title: `Términos del Club | ${content.marca.nombre}` };
+export const metadata = { alternates: { canonical: '/terminos' }, title: `Términos del Club | ${content.marca.nombre}` };
 
 export default function TerminosPage() {
   return (
-    <main className="mx-auto max-w-2xl px-4 py-16 text-gray-700">
+    <main id="contenido" className="mx-auto max-w-2xl px-4 py-16 text-gray-700">
       <h1 className="mb-6 text-3xl font-bold text-brand-black">Términos del Club VIP Fundadores</h1>
       <a href="/" className="mb-6 inline-block text-sm text-brand-black underline">
         ← Volver al inicio
@@ -23,10 +23,15 @@ export default function TerminosPage() {
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Beneficios</h2>
       <p className="mb-4">
-        Los beneficios del Club (Precio Socio, puntos dobles, acceso anticipado, promociones privadas, beneficios
-        de delivery y sorteos) están sujetos a disponibilidad, producto, campaña y condiciones comerciales
+        Los beneficios del Club (Precio Socio, acceso anticipado y promociones privadas) están sujetos a disponibilidad, producto, campaña y condiciones comerciales
         vigentes en cada momento. No garantizan un descuento en todos los productos ni delivery gratuito
         ilimitado.
+      </p>
+      <p className="mb-4">
+        Los juguetes y envíos se pagan por separado. La membresía no incluye un juguete ni una caja mensual.
+        Puntos dobles, fechas especiales y delivery especial solo se aplican si existe una campaña vigente,
+        con reglas comunicadas previamente. Antes de activar la membresía, el equipo confirma por WhatsApp
+        los beneficios disponibles, productos participantes, vigencia, pago y renovación. Esta web no realiza cobros automáticos.
       </p>
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Etapa piloto</h2>
