@@ -28,7 +28,7 @@ describe('content compliance', () => {
   });
 
   it('shows the correct founder pricing', () => {
-    expect(content.pricing.precio).toBe('S/ 14.90');
+    expect(content.pricing.planes.find((plan) => plan.id === 'mensual')?.precio).toBe('S/ 14.90');
     expect(content.hero.precio).toBe('S/14.90 / mes');
   });
 

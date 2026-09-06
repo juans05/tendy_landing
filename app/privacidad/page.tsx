@@ -17,8 +17,10 @@ export default function PrivacidadPage() {
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">¿Qué datos recopilamos?</h2>
       <p className="mb-4">
-        A través de nuestro formulario del Club VIP Fundadores solicitamos únicamente tu nombre, tu número de
-        WhatsApp y, de forma opcional, un rango de edad de interés y tus preferencias de producto. No solicitamos
+        Para crear tu cuenta solicitamos el correo del adulto y verificamos su acceso mediante un código.
+        Conservamos el identificador de cuenta, aceptación de condiciones, estado de membresía, referencias
+        y estados de pago, vigencia y pedidos registrados. Si nos contactas por WhatsApp, recibimos los datos
+        que decides compartir. No solicitamos
         ni almacenamos DNI, nombre completo, colegio, dirección permanente ni fecha exacta de nacimiento de
         ningún menor de edad.
       </p>
@@ -37,6 +39,9 @@ export default function PrivacidadPage() {
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">¿Compartimos tus datos?</h2>
       <p className="mb-4">
+        Supabase presta los servicios de autenticación, base de datos y alojamiento de imágenes; MercadoPago
+        procesa las suscripciones y pagos. Tendy no almacena el número completo ni el código de seguridad de
+        tu tarjeta. Usamos una cookie necesaria, protegida y de duración limitada, para mantener tu sesión.
         Al contactarnos por WhatsApp, los datos que envías se procesan también en esa plataforma. Si aceptas analítica, Google y, cuando esté configurado, Meta reciben datos de navegación e interacciones. No enviamos tu nombre, teléfono ni el texto de tus mensajes como parámetros de eventos.
       </p>
 

@@ -1,0 +1,4 @@
+import Image from 'next/image';
+export function PlatformShell({ children, admin = false }: { children: React.ReactNode; admin?: boolean }) {
+  return <><header className="platform-header"><a href="/" aria-label="Tendy Perú, inicio"><Image src="/images/tendyperu-logo.png" alt="Tendy Perú" width={72} height={72} /></a><nav aria-label="Navegación del Club"><a href="/catalogo">Juguetes</a><a href="/mi-club">Mi Club</a>{admin && <a href="/admin">Administración</a>}<a href="/" className="text-link">Volver a la tienda ↗</a></nav></header><main id="contenido" className="platform-main">{children}</main><footer className="platform-footer"><span>© {new Date().getFullYear()} Tendy Perú</span><a href="/privacidad">Privacidad</a><a href="/terminos">Términos del Club</a><a href="/libro-de-reclamaciones">Libro de Reclamaciones</a></footer></>;
+}

@@ -18,7 +18,8 @@ export default function TerminosPage() {
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Membresía</h2>
       <p className="mb-4">
         La membresía tiene un costo de S/ 14.90 al mes durante la etapa piloto. Sin permanencia durante el piloto:
-        puedes solicitar la cancelación de tu membresía cuando quieras, escribiéndonos por WhatsApp.
+        puedes detener la renovación desde Mi Club. El pago es recurrente cada mes y se procesa en MercadoPago.
+        Crear una cuenta no genera cobros. La membresía se activa cuando se verifica un pago aprobado.
       </p>
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Beneficios</h2>
@@ -30,8 +31,8 @@ export default function TerminosPage() {
       <p className="mb-4">
         Los juguetes y envíos se pagan por separado. La membresía no incluye un juguete ni una caja mensual.
         Puntos dobles, fechas especiales y delivery especial solo se aplican si existe una campaña vigente,
-        con reglas comunicadas previamente. Antes de activar la membresía, el equipo confirma por WhatsApp
-        los beneficios disponibles, productos participantes, vigencia, pago y renovación. Esta web no realiza cobros automáticos.
+        con reglas comunicadas previamente. Revisa los productos participantes y las condiciones de cada campaña
+        en el catálogo y en Mi Club antes de afiliarte. No se garantiza un ahorro fijo ni premios por tener membresía.
       </p>
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Etapa piloto</h2>
@@ -44,7 +45,10 @@ export default function TerminosPage() {
 
       <h2 className="mb-2 mt-8 text-xl font-bold text-brand-black">Cancelación</h2>
       <p className="mb-4">
-        Puedes cancelar tu membresía en cualquier momento solicitándolo por WhatsApp, sin penalidad.
+        Puedes detener los próximos cobros desde Mi Club, sin penalidad. El acceso del periodo ya pagado
+        se conserva hasta su vencimiento, salvo devolución o reversión del pago. Detener la renovación no
+        solicita un reembolso automáticamente. Para consultas sobre un cobro o devolución, contacta con Tendy
+        o usa el Libro de Reclamaciones. Los pagos rechazados no activan un nuevo periodo.
       </p>
     </main>
   );

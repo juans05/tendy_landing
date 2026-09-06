@@ -15,6 +15,17 @@ export interface PasoComoFunciona {
   descripcion: string;
 }
 
+export interface PlanPrecio {
+  id: string;
+  badge: string;
+  nombre: string;
+  subtitulo: string;
+  precio: string;
+  periodo: string;
+  equivalencia: string | null;
+  recomendado: boolean;
+}
+
 export const content = {
   marca: { nombre: 'Tendy', anioCopyright: 2026 },
   seo: {
@@ -107,10 +118,8 @@ export const content = {
     },
   },
   pricing: {
-    badge: 'PLAN FUNDADORES',
-    titulo: 'Club VIP',
-    precio: 'S/ 14.90',
-    periodo: 'al mes',
+    titulo: 'Elige tu plan del Club',
+    subtitulo: 'Todos los planes incluyen los mismos beneficios. Solo cambia cada cuánto tiempo pagas.',
     lista: [
       'Precios especiales',
       'Promociones exclusivas',
@@ -122,6 +131,48 @@ export const content = {
     cta: 'QUIERO UNIRME',
     sinPermanencia: 'Sin permanencia durante el piloto.',
     cancelacion: 'Puedes solicitar la cancelación de tu membresía cuando quieras.',
+    planes: [
+      {
+        id: 'mensual',
+        badge: 'PLAN MENSUAL',
+        nombre: 'Carinito',
+        subtitulo: 'Pagas mes a mes',
+        precio: 'S/ 14.90',
+        periodo: 'Mensuales',
+        equivalencia: null,
+        recomendado: false,
+      },
+      {
+        id: 'trimestral',
+        badge: 'PLAN TRIMESTRAL',
+        nombre: 'Detallista',
+        subtitulo: 'Te animaste por 3 meses',
+        precio: 'S/ 44.70',
+        periodo: 'Trimestrales',
+        equivalencia: 'Es como pagar S/14.90 al mes',
+        recomendado: false,
+      },
+      {
+        id: 'semestral',
+        badge: 'PLAN SEMESTRAL',
+        nombre: 'Consentidor',
+        subtitulo: 'Medio año consintiendo a los tuyos',
+        precio: 'S/ 81.95',
+        periodo: 'Semestrales',
+        equivalencia: 'Es como pagar S/13.66 al mes',
+        recomendado: false,
+      },
+      {
+        id: 'anual',
+        badge: 'PLAN ANUAL',
+        nombre: 'Fundador',
+        subtitulo: 'Te uniste para todo el año',
+        precio: 'S/ 163.90',
+        periodo: 'Anuales',
+        equivalencia: 'Es como pagar S/13.66 al mes',
+        recomendado: true,
+      },
+    ] as PlanPrecio[],
   },
   comoFunciona: {
     titulo: 'Comenzar es muy fácil',

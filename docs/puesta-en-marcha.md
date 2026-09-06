@@ -1,5 +1,7 @@
 # Tendy: publicación y medición
 
+> Actualización: consultar [Plataforma Club Tendy](./plataforma-club.md) para la implementación vigente. Las notas inferiores describen versiones previas; el catálogo ahora se administra en Supabase y existe una única membresía mensual.
+
 La portada es una vitrina de categorías con imágenes referenciales, no un inventario confirmado. Sustituir los datos de `components/store/Catalog.tsx` por fotos, nombres, edades y precios aprobados antes de anunciar productos disponibles. No se agregan ofertas ni reseñas ficticias al marcado estructurado.
 
 Copiar `.env.example` a `.env.local` y configurar:
@@ -10,6 +12,7 @@ Copiar `.env.example` a `.env.local` y configurar:
 - `NEXT_PUBLIC_META_PIXEL_ID`: opcional, solo números.
 - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`: token de Search Console.
 - `MP_ACCESS_TOKEN`: access token privado de MercadoPago (nunca `NEXT_PUBLIC_`). Sin él, el botón de pago en línea redirige con un aviso de error y no crea la suscripción.
+- `RESEND_API_KEY`, `RECLAMOS_FROM_EMAIL`, `RECLAMOS_EMAIL`: envío del Libro de Reclamaciones por correo (Resend). `RECLAMOS_FROM_EMAIL` debe ser un remitente de un dominio verificado en Resend; `RECLAMOS_EMAIL` es la casilla del negocio que recibe cada reclamo. Sin estas variables, el formulario muestra un error y no se envía.
 
 Reconstruir después de cambiar variables públicas. Ejecutar `npm test`, `npm run typecheck`, `npm run build`.
 
@@ -27,11 +30,11 @@ La fuente de contenido del Club es `lib/club.ts`. El estudio propone 10–20 mie
 
 Los guantes Spider Hero y las máquinas de peluches aparecen como productos reales en el estudio, pero no contiene fotos de catálogo ni precios de venta actuales verificables. No se sustituyeron sus fotos con ilustraciones inventadas: la vitrina sigue explícitamente referencial hasta recibir imágenes y disponibilidad reales.
 
-`MembershipInterest` registra los clics válidos hacia WhatsApp desde las llamadas a afiliarse, con ubicación, plan Fundadores, valor 14.90 y moneda PEN. No equivale a una membresía vendida. Confirmar altas y renovaciones en el sistema comercial.
+`MembershipInterest` registra los clics en los CTA "Quiero ser fundador" (que llevan al pago, no a WhatsApp), con ubicación, plan Fundadores, valor 14.90 y moneda PEN. No equivale a una membresía vendida hasta que MercadoPago confirme el pago.
 
 ## Pago en línea con MercadoPago
 
-Junto a la tarjeta de membresía en `#membresia` hay una segunda tarjeta (`components/store/SubscribeCheckout.tsx`) con un checkbox mensual/anual y un botón que crea una suscripción recurrente real (`preapproval`) en MercadoPago: mensual a S/ 14.90, o anual a S/ 163.90 (11 meses, un mes de descuento). Los precios salen de `lib/mercadopago.ts`, que toma `club.price` como fuente única. El envío del formulario es una petición POST normal (sin JavaScript) a `app/api/mercadopago/subscribe/route.ts`, que valida plan y correo, llama a la API de MercadoPago con `MP_ACCESS_TOKEN` y redirige al `init_point` (checkout hospedado por MercadoPago) o de vuelta a `#membresia` con `?checkout_error=` si algo falla.
+La membresía se contrata solo por suscripción: la tarjeta en `#pagar` (`components/store/SubscribeCheckout.tsx`, dentro de `#membresia`) tiene un checkbox mensual/anual y un botón que crea una suscripción recurrente real (`preapproval`) en MercadoPago: mensual a S/ 14.90, o anual a S/ 163.90 (11 meses, un mes de descuento). Todos los CTA "Quiero ser fundador" (`JoinLink`) apuntan a `#pagar` en vez de abrir WhatsApp; WhatsApp queda solo para soporte y consultas (`ContactLink`). Los precios salen de `lib/mercadopago.ts`, que toma `club.price` como fuente única. El envío del formulario es una petición POST normal (sin JavaScript) a `app/api/mercadopago/subscribe/route.ts`, que valida plan y correo, llama a la API de MercadoPago con `MP_ACCESS_TOKEN` y redirige al `init_point` (checkout hospedado por MercadoPago) o de vuelta a `#membresia` con `?checkout_error=` si algo falla.
 
 No hay webhook ni base de datos: el alta y el estado de la suscripción se confirman en el panel de MercadoPago, igual que hoy se confirman las altas por WhatsApp. Si se necesita que la web reconozca automáticamente a un socio activo, eso requiere agregar un webhook de `preapproval`/`payment` y persistencia, pendiente de definir.
 
