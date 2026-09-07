@@ -9,8 +9,8 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
   const user = await currentUser();
   if (!user) redirect('/ingresar?continuar=unirme');
   const [payments, subscriptions] = await Promise.all([
-    supabase<Payment[]>(`/rest/v1/payments?user_id=eq.${user.id}&order=period_end.desc&limit=100`, {}, user.token),
-    supabase<Subscription[]>(`/rest/v1/subscriptions?user_id=eq.${user.id}&status=neq.cancelled&limit=1`, {}, user.token),
+    supabase<Payment[]>(`/rest/v1/payments?user_id=eq.${user.id}&order=period_end.desc&limit=100`),
+    supabase<Subscription[]>(`/rest/v1/subscriptions?user_id=eq.${user.id}&status=neq.cancelled&limit=1`),
   ]);
   if (accessUntil(payments) || subscriptions.some(s => ['authorized','creating','paused'].includes(s.status))) redirect('/mi-club');
   const errors: Record<string,string> = { 'no-disponible': 'El pago todavía no está disponible.', condiciones: 'Acepta las condiciones para continuar.', pendiente: 'Estamos verificando tu solicitud. Entra a Mi Club antes de iniciar otro pago.' };

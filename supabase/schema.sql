@@ -1,9 +1,15 @@
 -- Run once in a new Supabase project. No products, payments or members are fabricated.
-create table public.admins (user_id uuid primary key references auth.users(id) on delete cascade);
-create table public.member_consents (user_id uuid primary key references auth.users(id), version text not null, accepted_at timestamptz not null);
-alter table public.member_consents enable row level security;
-revoke all on public.member_consents from anon,authenticated;
-grant all on public.member_consents to service_role;
+-- Login is entirely server-side (own members/auth_codes/sessions tables); the browser never
+-- talks to Postgres directly and no Supabase Auth user table or JWT is involved.
+create table public.members (id uuid primary key default gen_random_uuid(), email text unique not null, created_at timestamptz not null default now());
+create table public.auth_codes (email text primary key, code_hash text not null, expires_at timestamptz not null, attempts integer not null default 0, created_at timestamptz not null default now());
+create table public.sessions (
+ id uuid primary key default gen_random_uuid(), member_id uuid not null references public.members(id) on delete cascade,
+ token_hash text unique not null, expires_at timestamptz not null, created_at timestamptz not null default now()
+);
+create index sessions_member on public.sessions(member_id);
+create table public.admins (user_id uuid primary key references public.members(id) on delete cascade);
+create table public.member_consents (user_id uuid primary key references public.members(id), version text not null, accepted_at timestamptz not null);
 create table public.products (
  id uuid primary key default gen_random_uuid(), name text not null, category text not null,
  description text not null default '', image_url text, price numeric(10,2), member_price numeric(10,2),
@@ -18,7 +24,7 @@ create table public.campaigns (
  published boolean not null default false, check (ends_at > starts_at)
 );
 create table public.subscriptions (
- id uuid primary key, user_id uuid not null references auth.users(id),
+ id uuid primary key, user_id uuid not null references public.members(id),
  mp_id text unique, status text not null default 'creating', init_point text,
  next_payment_date timestamptz, provider_updated_at timestamptz,
  created_at timestamptz not null default now(),
@@ -27,33 +33,33 @@ create table public.subscriptions (
 create unique index one_open_subscription on public.subscriptions(user_id) where status <> 'cancelled';
 create table public.payments (
  id text primary key, subscription_id uuid not null references public.subscriptions(id),
- user_id uuid not null references auth.users(id), status text not null,
+ user_id uuid not null references public.members(id), status text not null,
  amount numeric(10,2) not null, paid_at timestamptz not null, period_end timestamptz not null,
  updated_at timestamptz not null
 );
 create index member_payments on public.payments(user_id,period_end desc);
 create table public.orders (
- id uuid primary key default gen_random_uuid(), user_id uuid not null references auth.users(id),
+ id uuid primary key default gen_random_uuid(), user_id uuid not null references public.members(id),
  description text not null, total numeric(10,2) not null check (total >= 0),
  status text not null check (status in ('confirmado','preparando','enviado','entregado','cancelado')),
  created_at timestamptz not null default now()
 );
 
+alter table public.members enable row level security;
+alter table public.auth_codes enable row level security;
+alter table public.sessions enable row level security;
 alter table public.admins enable row level security;
+alter table public.member_consents enable row level security;
 alter table public.products enable row level security;
 alter table public.campaigns enable row level security;
 alter table public.subscriptions enable row level security;
 alter table public.payments enable row level security;
 alter table public.orders enable row level security;
-revoke all on public.admins, public.products, public.campaigns, public.subscriptions, public.payments, public.orders from anon, authenticated;
+revoke all on public.members, public.auth_codes, public.sessions, public.admins, public.member_consents, public.products, public.campaigns, public.subscriptions, public.payments, public.orders from anon, authenticated;
 grant select on public.products, public.campaigns to anon, authenticated;
 create policy published_products on public.products for select to anon,authenticated using (published);
 create policy current_campaigns on public.campaigns for select to anon,authenticated using (published and starts_at <= now() and ends_at >= now());
-grant select on public.subscriptions, public.payments, public.orders to authenticated;
-create policy own_subscriptions on public.subscriptions for select to authenticated using (auth.uid() = user_id);
-create policy own_payments on public.payments for select to authenticated using (auth.uid() = user_id);
-create policy own_orders on public.orders for select to authenticated using (auth.uid() = user_id);
-grant all on public.admins, public.products, public.campaigns, public.subscriptions, public.payments, public.orders to service_role;
+grant all on public.members, public.auth_codes, public.sessions, public.admins, public.member_consents, public.products, public.campaigns, public.subscriptions, public.payments, public.orders to service_role;
 
 -- Atomic reservation prevents simultaneous checkout requests from creating two subscriptions.
 create function public.reserve_subscription(p_id uuid, p_user uuid) returns setof public.subscriptions
@@ -85,8 +91,9 @@ $$;
 revoke all on function public.reserve_subscription(uuid,uuid), public.record_payment(jsonb) from public,anon,authenticated;
 grant execute on function public.reserve_subscription(uuid,uuid), public.record_payment(jsonb) to service_role;
 
--- After signing in with your own email, obtain its UUID from Authentication > Users:
--- insert into public.admins(user_id) values ('YOUR-USER-UUID');
+-- After logging in once through the app with your own email, obtain your UUID with:
+-- select id from public.members where email = 'you@example.com';
+-- insert into public.admins(user_id) values ('YOUR-MEMBER-UUID');
 -- Do not grant administrative roles through user-editable metadata or frontend state.
 
 -- Product images are public; only the authenticated server administrator can upload.

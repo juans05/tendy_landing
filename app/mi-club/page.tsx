@@ -12,9 +12,9 @@ export default async function MemberPage({ searchParams }: { searchParams: Promi
   const user = await currentUser();
   if (!user) redirect('/ingresar');
   const [subscriptions, payments, orders, admin, catalog] = await Promise.all([
-    supabase<Subscription[]>(`/rest/v1/subscriptions?user_id=eq.${user.id}&order=created_at.desc&limit=10`, {}, user.token),
-    supabase<Payment[]>(`/rest/v1/payments?user_id=eq.${user.id}&order=paid_at.desc&limit=100`, {}, user.token),
-    supabase<{id:string;description:string;total:number;status:string;created_at:string}[]>(`/rest/v1/orders?user_id=eq.${user.id}&order=created_at.desc&limit=50`, {}, user.token),
+    supabase<Subscription[]>(`/rest/v1/subscriptions?user_id=eq.${user.id}&order=created_at.desc&limit=10`),
+    supabase<Payment[]>(`/rest/v1/payments?user_id=eq.${user.id}&order=paid_at.desc&limit=100`),
+    supabase<{id:string;description:string;total:number;status:string;created_at:string}[]>(`/rest/v1/orders?user_id=eq.${user.id}&order=created_at.desc&limit=50`),
     isAdmin(user.id), getCatalog(),
   ]);
   const sub = subscriptions[0];
