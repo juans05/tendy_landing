@@ -49,4 +49,6 @@ export function sameOrigin(request: NextRequest) {
   const referer = request.headers.get('referer');
   try { return Boolean(referer && new URL(referer).origin === expected); } catch { return false; }
 }
-export const privateMetadata = { robots: { index: false, follow: false }, referrer: 'no-referrer' as const };
+// same-origin (not no-referrer): still hides these URLs from external sites, but keeps the
+// Referer/Origin on same-origin requests, which sameOrigin() needs for plain <form> POSTs.
+export const privateMetadata = { robots: { index: false, follow: false }, referrer: 'same-origin' as const };
