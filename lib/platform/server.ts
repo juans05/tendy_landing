@@ -43,6 +43,10 @@ export async function isAdmin(userId: string) {
 }
 export function sameOrigin(request: NextRequest) {
   const expected = process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).origin : request.nextUrl.origin;
-  return request.headers.get('origin') === expected;
+  const origin = request.headers.get('origin');
+  if (origin) return origin === expected;
+  // Plain <form> POST navigations (not fetch) don't always carry Origin; Referer is the fallback.
+  const referer = request.headers.get('referer');
+  try { return Boolean(referer && new URL(referer).origin === expected); } catch { return false; }
 }
 export const privateMetadata = { robots: { index: false, follow: false }, referrer: 'no-referrer' as const };
