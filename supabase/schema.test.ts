@@ -42,6 +42,27 @@ describe('real Postgres schema and access rules',()=>{
   await expect(db.query('select record_payment($1)',['{}'])).rejects.toThrow();
   await db.exec('reset role');
  });
+ it('accepts a correct login code once, then rejects reuse',async()=>{
+  await db.query(`insert into auth_codes(email,code_hash,expires_at) values('once@test.dev','the-hash',now() + interval '10 minutes')`);
+  const first=await db.query<{verify_auth_code:boolean}>('select verify_auth_code($1,$2)',['once@test.dev','the-hash']);
+  expect(first.rows[0].verify_auth_code).toBe(true);
+  const second=await db.query<{verify_auth_code:boolean}>('select verify_auth_code($1,$2)',['once@test.dev','the-hash']);
+  expect(second.rows[0].verify_auth_code).toBe(false);
+ });
+ it('atomically caps guesses at 5, so the limit cannot be bypassed even by the right code afterward',async()=>{
+  await db.query(`insert into auth_codes(email,code_hash,expires_at) values('guess@test.dev','right-hash',now() + interval '10 minutes')`);
+  for (let i=0;i<5;i++) {
+   const wrong=await db.query<{verify_auth_code:boolean}>('select verify_auth_code($1,$2)',['guess@test.dev','wrong-hash']);
+   expect(wrong.rows[0].verify_auth_code).toBe(false);
+  }
+  const tooLate=await db.query<{verify_auth_code:boolean}>('select verify_auth_code($1,$2)',['guess@test.dev','right-hash']);
+  expect(tooLate.rows[0].verify_auth_code).toBe(false);
+ });
+ it('rejects an expired code even with the right hash',async()=>{
+  await db.query(`insert into auth_codes(email,code_hash,expires_at) values('expired@test.dev','the-hash',now() - interval '1 minute')`);
+  const result=await db.query<{verify_auth_code:boolean}>('select verify_auth_code($1,$2)',['expired@test.dev','the-hash']);
+  expect(result.rows[0].verify_auth_code).toBe(false);
+ });
  it('keeps drafts private and prevents anonymous writes or checkout reservations',async()=>{
   await db.exec("insert into products(name,category) values('Draft toy','Toys');");
   await db.exec('set role anon');

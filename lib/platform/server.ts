@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 
@@ -21,6 +21,10 @@ export async function supabase<T>(path: string, init: RequestInit = {}): Promise
 }
 export function hashToken(token: string) {
   return createHash('sha256').update(token).digest('hex');
+}
+// Peppered so a leaked auth_codes row alone (without server secrets) can't be brute-forced offline.
+export function hashCode(code: string) {
+  return createHmac('sha256', process.env.SUPABASE_SERVICE_ROLE_KEY || '').update(code).digest('hex');
 }
 export async function currentUser() {
   const token = (await cookies()).get('tendy_access')?.value;

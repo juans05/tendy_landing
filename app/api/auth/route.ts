@@ -1,11 +1,10 @@
 import { randomBytes, randomInt } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
-import { hashToken, platformReady, sameOrigin, supabase } from '@/lib/platform/server';
+import { hashCode, hashToken, platformReady, sameOrigin, supabase } from '@/lib/platform/server';
 import { sendEmail } from '@/lib/email';
 
 const CODE_TTL_MS = 10 * 60 * 1000;
 const RESEND_COOLDOWN_MS = 60 * 1000;
-const MAX_ATTEMPTS = 5;
 const SESSION_TTL_SECONDS = 3600;
 
 export async function POST(request: NextRequest) {
@@ -32,20 +31,14 @@ export async function POST(request: NextRequest) {
       await supabase('/rest/v1/auth_codes?on_conflict=email', {
         method: 'POST',
         headers: { Prefer: 'resolution=merge-duplicates,return=minimal' },
-        body: JSON.stringify({ email, code_hash: hashToken(code), expires_at: new Date(Date.now() + CODE_TTL_MS).toISOString(), attempts: 0, created_at: new Date().toISOString() }),
+        body: JSON.stringify({ email, code_hash: hashCode(code), expires_at: new Date(Date.now() + CODE_TTL_MS).toISOString(), attempts: 0, created_at: new Date().toISOString() }),
       });
       await sendEmail(email, 'Tu código de acceso — Club Tendy Perú', `Tu código de acceso es: ${code}\n\nVence en 10 minutos y solo se puede usar una vez. Si no lo solicitaste, ignora este correo.`);
       return NextResponse.json({ ok: true });
     }
     if (data?.action !== 'verify' || data.accepted !== true || !/^\d{6}$/.test(String(data?.code))) return NextResponse.json({ error: 'Revisa el código recibido y acepta las condiciones.' }, { status: 400 });
-    const codeRows = await supabase<{ code_hash: string; expires_at: string; attempts: number }[]>(`/rest/v1/auth_codes?email=eq.${encodeURIComponent(email)}&select=code_hash,expires_at,attempts&limit=1`);
-    const record = codeRows[0];
-    if (!record || Date.parse(record.expires_at) < Date.now() || record.attempts >= MAX_ATTEMPTS) throw new Error('Expired or missing code');
-    if (record.code_hash !== hashToken(String(data.code))) {
-      await supabase(`/rest/v1/auth_codes?email=eq.${encodeURIComponent(email)}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ attempts: record.attempts + 1 }) });
-      throw new Error('Invalid code');
-    }
-    await supabase(`/rest/v1/auth_codes?email=eq.${encodeURIComponent(email)}`, { method: 'DELETE', headers: { Prefer: 'return=minimal' } });
+    const matched = await supabase<boolean>('/rest/v1/rpc/verify_auth_code', { method: 'POST', body: JSON.stringify({ p_email: email, p_code_hash: hashCode(String(data.code)) }) });
+    if (!matched) throw new Error('Invalid, expired or overused code');
     let member = (await supabase<{ id: string }[]>(`/rest/v1/members?email=eq.${encodeURIComponent(email)}&select=id&limit=1`))[0];
     if (!member) member = (await supabase<{ id: string }[]>('/rest/v1/members', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ email }) }))[0];
     await supabase('/rest/v1/member_consents?on_conflict=user_id', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify({ user_id: member.id, version: '2026-09-06', accepted_at: new Date().toISOString() }) });

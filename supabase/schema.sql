@@ -88,8 +88,21 @@ language sql security definer set search_path = public as $$
  where excluded.updated_at >= payments.updated_at
  and excluded.user_id=payments.user_id and excluded.subscription_id=payments.subscription_id;
 $$;
-revoke all on function public.reserve_subscription(uuid,uuid), public.record_payment(jsonb) from public,anon,authenticated;
-grant execute on function public.reserve_subscription(uuid,uuid), public.record_payment(jsonb) to service_role;
+-- Atomic check+increment: concurrent guesses can't bypass the attempt limit, since Postgres
+-- serializes concurrent UPDATEs to the same row instead of racing on a read-then-write from the app.
+create function public.verify_auth_code(p_email text, p_code_hash text) returns boolean
+language plpgsql security definer set search_path = public as $$
+declare matched boolean;
+begin
+ update public.auth_codes set attempts = attempts + 1
+ where email = p_email and expires_at > now() and attempts < 5
+ returning (code_hash = p_code_hash) into matched;
+ if matched then delete from public.auth_codes where email = p_email; end if;
+ return coalesce(matched, false);
+end $$;
+
+revoke all on function public.reserve_subscription(uuid,uuid), public.record_payment(jsonb), public.verify_auth_code(text,text) from public,anon,authenticated;
+grant execute on function public.reserve_subscription(uuid,uuid), public.record_payment(jsonb), public.verify_auth_code(text,text) to service_role;
 
 -- After logging in once through the app with your own email, obtain your UUID with:
 -- select id from public.members where email = 'you@example.com';
